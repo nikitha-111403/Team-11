@@ -1,20 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dress Perfect</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <mark>Project Title</mark>
-    <h1>Team-11</h1>
-    <h2>Team Lead: Gundala Nikitha Yadav</h2>
-    <h3>Team Members</h3>
-    <ol>
-        <li>Kekkerla Sreeja</li>
-        <li>Kasturi pranitha</li>
-        <li>Konda Rakesh Goud</li>
-        <li>Harsha Siddartha</li>
-    </ol>
+  <header>
+    <nav>
+      <h1>Dress Perfect</h1>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" onclick="showPage('form')">Find My Style</a></li>
+        <li><a href="#" onclick="showPage('results')">Results</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home Page -->
+    <section id="home" class="page active">
+      <h2>Welcome to Dress Perfect</h2>
+      <p>Your AI-powered style assistant. Get personalized outfit and accessory recommendations for any occasion.</p>
+      <button onclick="showPage('form')">Get Started</button>
+    </section>
+
+    <!-- Form Page -->
+    <section id="form" class="page">
+      <h2>Tell Us About Your Event</h2>
+      <form id="styleForm">
+        <label>Occasion:
+          <select id="occasion" required>
+            <option value="">Select...</option>
+            <option value="wedding">Wedding</option>
+            <option value="party">Party</option>
+            <option value="casual">Casual</option>
+            <option value="formal">Formal</option>
+          </select>
+        </label>
+        <label>Preferred Style:
+          <select id="style" required>
+            <option value="">Select...</option>
+            <option value="traditional">Traditional</option>
+            <option value="modern">Modern</option>
+            <option value="fusion">Fusion</option>
+          </select>
+        </label>
+        <label>Gender:
+          <select id="gender" required>
+            <option value="">Select...</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="unisex">Unisex</option>
+          </select>
+        </label>
+        <button type="submit">Generate Recommendations</button>
+      </form>
+    </section>
+
+    <!-- Results Page -->
+    <section id="results" class="page">
+      <h2>Your Personalized Style</h2>
+      <div id="loading" class="hidden">Generating Your Perfect Style...</div>
+      <div id="recommendations"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="recommend.js"></script>
+  <script src="enhance.js"></script>
 </body>
 </html>
