@@ -1,0 +1,95 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  background:lavender;
+  color: black;
+  line-height: 2.0;
+}
+
+/* Navigation */
+header {
+  background: purple;
+  color: white;
+  padding: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav li {
+  margin-left: 1rem;
+}
+
+nav a {
+  color: whitesmoke;
+  text-decoration: gainsboro;
+  font-weight: bold;
+}
+
+/* Pages */
+.page {
+  display: none;
+  padding: 2rem;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Form */
+form {
+  display: grid;
+  gap: 1rem;
+  max-width: 400px;
+  margin: auto;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+button {
+  background: purple;
+  color: white;
+  padding: 1rem;
+  border: burlywood;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: plum;
+}
+
+/* Results */
+#recommendations {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0.1,0.1,0);
+}
+
+.hidden {
+  display: none;
+}
