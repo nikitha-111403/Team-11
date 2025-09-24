@@ -14,7 +14,7 @@ body {
 
 /* Navigation */
 header {
-  background: purple;
+  background: palevioletred;
   color: white;
   padding: 2rem;
 }
@@ -69,7 +69,7 @@ form label {
 }
 
 button {
-  background: purple;
+  background: palevioletred;
   color: white;
   padding: 1rem;
   border: burlywood;
