@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dress Perfect - Your Style Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4a5568;
+            font-size: 1.1rem;
+        }
+
+        .form-group select {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group select:hover {
+            border-color: #cbd5e0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+            display: block;
+            min-width: 200px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .results-container {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .results-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-store {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-link {
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .product-link:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .results-header h2 {
+                font-size: 2rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">Dress Perfect</h1>
+            <p class="tagline">Your Personal Style Companion for Every Occasion</p>
+        </div>
+
+        <div class="form-container">
+            <form id="styleForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="budget">Budget (INR)</label>
+                        <select id="budget" required>
+                            <option value="">Select your budget</option>
+                            <option value="under1000">Under ₹1,000</option>
+                            <option value="1000-5000">₹1,000 - ₹5,000</option>
+                            <option value="5000-10000">₹5,000 - ₹10,000</option>
+                            <option value="above10000">Above ₹10,000</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skinTone">Skin Tone</label>
+                        <select id="skinTone" required>
+                            <option value="">Select your skin tone</option>
+                            <option value="fair">Fair</option>
+                            <option value="medium">Medium</option>
+                            <option value="wheatish">Wheatish</option>
+                            <option value="dusky">Dusky</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bodyType">Body Type</label>
+                        <select id="bodyType" required>
+                            <option value="">Select your body type</option>
+                            <option value="slim">Slim</option>
+                            <option value="curvy">Curvy</option>
+                            <option value="athletic">Athletic</option>
+                            <option value="petite">Petite</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="occasion">Occasion</label>
+                        <select id="occasion" required>
+                            <option value="">Select occasion</option>
+                            <option value="casual">Casual</option>
+                            <option value="office">Office Wear</option>
+                            <option value="party">Party Wear</option>
+                            <option value="wedding">Wedding/Traditional</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Get My Style ✨</button>
+            </form>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Finding your perfect style...</p>
+        </div>
+
+        <div id="results" class="results-container">
+            <div class="results-header">
+                <h2>Your Perfect Style Picks</h2>
+                <p>Curated just for you based on your preferences</p>
+            </div>
+            <div id="resultsGrid" class="results-grid">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fashion data with realistic product information
+        const fashionData = {
+            casual: {
+                under1000: [
+                    {
+                        title: "Cotton A-Line Casual Dress",
+                        price: "₹899",
+                        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Denim Jacket & Sneakers",
+                        price: "₹799",
+                        image: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=400&h=600&fit=crop",
+                        store: "Ajio",
+                        link: "https://www.ajio.com/"
+                    },
+                    {
+                        title: "Casual Canvas Handbag",
+                        price: "₹699",
+                        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=600&fit=crop",
+                        store: "Amazon",
+                        link: "https://www.amazon.in/"
+                    }
+                ],
+                "1000-5000": [
+                    {
+                        title: "Premium Cotton Midi Dress",
+                        price: "₹2,499",
+                        image: "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    },
+                    {
+                        title: "Casual Block Heels",
+                        price: "₹1,899",
+                        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Leather Crossbody Bag",
+                        price: "₹3,299",
+                        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=600&fit=crop",
+                        store: "Flipkart",
+                        link: "https://www.flipkart.com/"
+                    }
+                ],
+                "5000-10000": [
+                    {
+                        title: "Designer Casual Jumpsuit",
+                        price: "₹7,999",
+                        image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Premium Leather Boots",
+                        price: "₹6,499",
+                        image: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ],
+                above10000: [
+                    {
+                        title: "Luxury Casual Designer Set",
+                        price: "₹12,999",
+                        image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    }
+                ]
+            },
+            office: {
+                under1000: [
+                    {
+                        title: "Formal Shirt & Trousers",
+                        price: "₹899",
+                        image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=600&fit=crop",
+                        store: "Ajio",
+                        link: "https://www.ajio.com/"
+                    }
+                ],
+                "1000-5000": [
+                    {
+                        title: "Professional Blazer Set",
+                        price: "₹3,499",
+                        image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Office Formal Heels",
+                        price: "₹2,299",
+                        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ],
+                "5000-10000": [
+                    {
+                        title: "Designer Office Wear",
+                        price: "₹8,999",
+                        image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    }
+                ],
+                above10000: [
+                    {
+                        title: "Luxury Professional Wardrobe",
+                        price: "₹15,999",
+                        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ]
+            },
+            party: {
+                under1000: [
+                    {
+                        title: "Party Crop Top & Skirt",
+                        price: "₹799",
+                        image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=600&fit=crop",
+                        store: "Amazon",
+                        link: "https://www.amazon.in/"
+                    }
+                ],
+                "1000-5000": [
+                    {
+                        title: "Sequin Party Dress",
+                        price: "₹4,299",
+                        image: "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Party High Heels",
+                        price: "₹2,899",
+                        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    },
+                    {
+                        title: "Evening Clutch Bag",
+                        price: "₹1,599",
+                        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=600&fit=crop",
+                        store: "Flipkart",
+                        link: "https://www.flipkart.com/"
+                    }
+                ],
+                "5000-10000": [
+                    {
+                        title: "Designer Cocktail Dress",
+                        price: "₹9,999",
+                        image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Premium Party Accessories",
+                        price: "₹6,799",
+                        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ],
+                above10000: [
+                    {
+                        title: "Luxury Evening Gown",
+                        price: "₹18,999",
+                        image: "https://images.unsplash.com/photo-1566479179817-0936a2bbe3c7?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    }
+                ]
+            },
+            wedding: {
+                under1000: [
+                    {
+                        title: "Simple Kurti Set",
+                        price: "₹899",
+                        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=400&h=600&fit=crop",
+                        store: "Amazon",
+                        link: "https://www.amazon.in/"
+                    }
+                ],
+                "1000-5000": [
+                    {
+                        title: "Ethnic Anarkali Suit",
+                        price: "₹3,799",
+                        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Traditional Juttis",
+                        price: "₹1,299",
+                        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=600&fit=crop",
+                        store: "Ajio",
+                        link: "https://www.ajio.com/"
+                    },
+                    {
+                        title: "Ethnic Jewelry Set",
+                        price: "₹2,499",
+                        image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ],
+                "5000-10000": [
+                    {
+                        title: "Designer Lehenga",
+                        price: "₹9,499",
+                        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    },
+                    {
+                        title: "Traditional Heavy Dupatta",
+                        price: "₹7,299",
+                        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=600&fit=crop",
+                        store: "Nykaa Fashion",
+                        link: "https://www.nykaafashion.com/"
+                    }
+                ],
+                above10000: [
+                    {
+                        title: "Bridal Designer Ensemble",
+                        price: "₹25,999",
+                        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=400&h=600&fit=crop",
+                        store: "Myntra",
+                        link: "https://www.myntra.com/"
+                    }
+                ]
+            }
+        };
+
+        document.getElementById('styleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const budget = document.getElementById('budget').value;
+            const skinTone = document.getElementById('skinTone').value;
+            const bodyType = document.getElementById('bodyType').value;
+            const occasion = document.getElementById('occasion').value;
+
+            if (!budget || !skinTone || !bodyType || !occasion) {
+                alert('Please fill in all fields to get your perfect style recommendations!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+
+            // Simulate loading time
+            setTimeout(() => {
+                showResults(occasion, budget, skinTone, bodyType);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                
+                // Smooth scroll to results
+                document.getElementById('results').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 2000);
+        });
+
+        function showResults(occasion, budget, skinTone, bodyType) {
+            const resultsGrid = document.getElementById('resultsGrid');
+            resultsGrid.innerHTML = '';
+
+            // Get products based on occasion and budget
+            const products = fashionData[occasion] && fashionData[occasion][budget] 
+                ? fashionData[occasion][budget] 
+                : fashionData.casual["1000-5000"]; // fallback
+
+            products.forEach((product, index) => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.style.animationDelay = ${index * 0.2}s;
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">${product.price}</div>
+                        <div class="product-store">Available on ${product.store}</div>
+                        <a href="${product.link}" target="_blank" class="product-link">
+                            Shop Now →
+                        </a>
+                    </div>
+                `;
+                
+                resultsGrid.appendChild(productCard);
+            });
+
+            // Add personalized message
+            const personalizedMessage = getPersonalizedMessage(occasion, skinTone, bodyType);
+            const messageDiv = document.createElement('div');
+            messageDiv.style.gridColumn = '1 / -1';
+            messageDiv.style.textAlign = 'center';
+            messageDiv.style.background = 'rgba(255,255,255,0.9)';
+            messageDiv.style.padding = '20px';
+            messageDiv.style.borderRadius = '15px';
+            messageDiv.style.marginTop = '20px';
+            messageDiv.innerHTML = <p style="font-size: 1.1rem; color: #4a5568;"><strong>Style Tip:</strong> ${personalizedMessage}</p>;
+            resultsGrid.appendChild(messageDiv);
+        }
+
+        function getPersonalizedMessage(occasion, skinTone, bodyType) {
+            const messages = {
+                casual: {
+                    fair: "Light colors and pastels will complement your fair skin beautifully!",
+                    medium: "You can rock both warm and cool tones - try earthy colors!",
+                    wheatish: "Warm colors like orange, yellow, and red will look stunning on you!",
+                    dusky: "Bold and vibrant colors like royal blue and emerald will make you shine!"
+                },
+                party: {
+                    fair: "Jewel tones and metallics will make you stand out at any party!",
+                    medium: "Rich colors like burgundy and navy will enhance your natural glow!",
+                    wheatish: "Gold accessories and warm-toned outfits will be perfect for you!",
+                    dusky: "Bright colors and statement pieces will highlight your beautiful complexion!"
+                },
+                office: {
+                    slim: "Structured blazers and A-line dresses will create a professional silhouette!",
+                    curvy: "Wrap dresses and high-waisted trousers will flatter your curves beautifully!",
+                    athletic: "Tailored fits and straight-cut pants will complement your strong build!",
+                    petite: "High-waisted bottoms and cropped jackets will elongate your frame!"
+                },
+                wedding: {
+                    fair: "Traditional reds and maroons with gold jewelry will be absolutely stunning!",
+                    medium: "Rich silks in deep colors will enhance your natural beauty!",
+                    wheatish: "Warm-toned lehengas with heavy gold work will look magnificent!",
+                    dusky: "Bright colors like pink, orange, and green will make you glow!"
+                }
+            };
+
+            return messages[occasion] && messages[occasion][skinTone] 
+                ? messages[occasion][skinTone]
+                : messages[occasion] && messages[occasion][bodyType]
+                ? messages[occasion][bodyType]
+                : "These carefully curated pieces will make you look absolutely stunning!";
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to form elements
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    this.style.borderColor = '#667eea';
+                    this.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
+                    setTimeout(() => {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }, 1000);
+                });
+            });
+
+            // Add floating animation to the logo
+            const logo = document.querySelector('.logo');
+            setInterval(() => {
+                logo.style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    logo.style.transform = 'translateY(0)';
+                }, 1000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
