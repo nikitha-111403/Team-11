@@ -3,72 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dress Perfect</title>
+  <title>Dress Perfect - Your Personal Style Assistant</title>
   <link rel="stylesheet" href="style.css">
-</head >
+</head>
 <body>
+  <!-- Header with Navigation -->
   <header>
-    <nav>
-      <h1>Dress Perfect</h1>
-      <ul>
-        <li><a href="#" onclick="showPage('home')">Home</a></li>
-        <li><a href="#" onclick="showPage('form')">Find My Style</a></li>
-        <li><a href="#" onclick="showPage('results')">Results</a></li>
+    <nav class="container">
+      <a href="#" class="logo">Dress Perfect</a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+        <li><a href="#" onclick="showPage('form')">Get Started</a></li>
+        <li><a href="#" onclick="showPage('results')" id="results-nav" style="display: none;">Results</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
+  <main class="container">
     <!-- Home Page -->
-    <section id="home" class="page active">
-      <h2>Welcome to Dress Perfect</h2>
-      <p>Your AI-powered style assistant. Get personalized outfit and accessory recommendations for any occasion.</p>
-      <button onclick="showPage('form')">Get Started</button>
-    </section>
+    <div id="home" class="page active">
+      <div class="hero">
+        <h1>Dress Perfect</h1>
+        <p>Your AI-powered personal style assistant that creates perfect outfits tailored just for you</p>
+        <button class="cta-button" onclick="showPage('form')">Find My Perfect Style</button>
+      </div>
 
-    <!-- Form Page -->
-    <section id="form" class="page">
-      <h2>Tell Us About Your Event</h2>
-      <form id="styleForm">
-        <label>Occasion:
-          <select id="occasion" required>
-            <option value="">Select...</option>
-            <option value="wedding">Wedding</option>
-            <option value="party">Party</option>
-            <option value="casual">Casual</option>
-            <option value="formal">Formal</option>
-          </select>
-        </label>
-        <label>Preferred Style:
-          <select id="style" required>
-            <option value="">Select...</option>
-            <option value="traditional">Traditional</option>
-            <option value="modern">Modern</option>
-            <option value="fusion">Fusion</option>
-          </select>
-        </label>
-        <label>Gender:
-          <select id="gender" required>
-            <option value="">Select...</option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="unisex">Unisex</option>
-          </select>
-        </label>
-        <button type="submit">Generate Recommendations</button>
-      </form>
-    </section>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">👗</div>
+          <h3>Personalized Outfits</h3>
+          <p>Get outfit recommendations based on your body type, skin tone, and personal style preferences.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Budget-Friendly</h3>
+          <p>Find amazing looks that fit your budget, from affordable basics to designer pieces.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>Complete Styling</h3>
+          <p>Get matching accessories, jewelry, footwear, and beauty recommendations for every occasion.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Always Available</h3>
+          <p>Access your personal stylist anytime, anywhere on any device. Style made simple!</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Results Page -->
-    <section id="results" class="page">
-      <h2>Your Personalized Style</h2>
-      <div id="loading" class="hidden">Generating Your Perfect Style...</div>
-      <div id="recommendations"></div>
-    </section>
+    
   </main>
 
   <script src="script.js"></script>
-  <script src="recommend.js"></script>
-  <script src="enhance.js"></script>
 </body>
 </html>
