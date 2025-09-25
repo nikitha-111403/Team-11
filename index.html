@@ -51,6 +51,84 @@
         </div>
       </div>
     </div>
+    <!-- Input Form Page -->
+    <div id="form" class="page">
+      <div class="form-container">
+        <h2 class="form-title">Tell Us About You</h2>
+        <form id="styleForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="budget">Budget Range</label>
+              <select id="budget" required>
+                <option value="">Select your budget</option>
+                <option value="under-50">Under $50</option>
+                <option value="50-100">$50 - $100</option>
+                <option value="100-200">$100 - $200</option>
+                <option value="200-500">$200 - $500</option>
+                <option value="over-500">Over $500</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="occasion">Occasion</label>
+              <select id="occasion" required>
+                <option value="">Select occasion</option>
+                <option value="casual">Casual Day Out</option>
+                <option value="work">Work/Professional</option>
+                <option value="date">Date Night</option>
+                <option value="party">Party/Event</option>
+                <option value="wedding">Wedding</option>
+                <option value="vacation">Vacation</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="skinTone">Skin Tone</label>
+              <select id="skinTone" required>
+                <option value="">Select skin tone</option>
+                <option value="fair">Fair</option>
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="olive">Olive</option>
+                <option value="tan">Tan</option>
+                <option value="dark">Dark</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bodyType">Body Type</label>
+              <select id="bodyType" required>
+                <option value="">Select body type</option>
+                <option value="pear">Pear</option>
+                <option value="apple">Apple</option>
+                <option value="hourglass">Hourglass</option>
+                <option value="rectangle">Rectangle</option>
+                <option value="inverted-triangle">Inverted Triangle</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Generate My Perfect Outfits</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results Page -->
+    <div id="results" class="page">
+      <div class="results-container">
+        <h2 class="results-title">Your Perfect Style Matches</h2>
+        <div class="user-info" id="userInfo"></div>
+        <div class="outfit-section">
+          <h3 class="section-title">👗 Recommended Outfits</h3>
+          <div class="outfit-grid" id="outfitGrid"></div>
+        </div>
+        <div class="accessories-section">
+          <h3 class="section-title">✨ Perfect Accessories</h3>
+          <div class="accessories-grid" id="accessoriesGrid"></div>
+        </div>
+        <button class="try-again-btn" onclick="showPage('form')">Try Another Style</button>
+      </div>
+    </div>
 
     
   </main>
