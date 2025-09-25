@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dress Perfect 👗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Landing Page Styles */
+        .landing-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            opacity: 1;
+            transition: all 0.8s ease-in-out;
+        }
+
+        .landing-page.fade-out {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+        }
+
+        .logo-section h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        .logo-section p {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 50px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .get-started-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .get-started-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,107,107,0.6);
+            background: linear-gradient(45deg, #ff5252, #ff7979);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Customization Page Styles */
+        .customization-page {
+            display: none;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s ease-in-out;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .customization-page.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            text-align: center;
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: block;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .radio-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102,126,234,0.3);
+        }
+
+        .radio-option label:hover {
+            border-color: #667eea;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            font-size: 1.3rem;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #ff5252, #ff7979);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+        }
+
+        /* Results Page Styles */
+        .results-page {
+            display: none;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s ease-in-out;
+            padding: 40px 0;
+        }
+
+        .results-page.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .results-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            background: linear-gradient(45deg, #f0f2f5, #e1e8ed);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-source {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .view-product-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .view-product-btn:hover {
+            background: linear-gradient(45deg, #5a6fd8, #6b5b95);
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo-section p {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+
+            .form-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 50px 0;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+        }
+
+        .no-results h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .no-results p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page">
+        <div class="container">
+            <div class="logo-section">
+                <h1>Dress Perfect 👗</h1>
+                <p>Find your perfect outfit with matching accessories — always within budget.</p>
+                <p><a href="index.html">Get Started</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customization Page -->
+    <div id="customizationPage" class="customization-page">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Tell us about yourself</h2>
+                <form id="styleForm">
+                    <div class="form-group">
+                        <label>What's your budget? (INR)</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="budget" value="under-1000" id="budget1">
+                                <label for="budget1">Under ₹1,000</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="budget" value="1000-5000" id="budget2">
+                                <label for="budget2">₹1,000 - ₹5,000</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="budget" value="5000-10000" id="budget3">
+                                <label for="budget3">₹5,000 - ₹10,000</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="budget" value="above-10000" id="budget4">
+                                <label for="budget4">Above ₹10,000</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What's your skin tone?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="skinTone" value="fair" id="skin1">
+                                <label for="skin1">Fair</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="skinTone" value="wheatish" id="skin2">
+                                <label for="skin2">Wheatish</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="skinTone" value="olive" id="skin3">
+                                <label for="skin3">Olive</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="skinTone" value="dusky" id="skin4">
+                                <label for="skin4">Dusky</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What's your body type?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="bodyType" value="pear" id="body1">
+                                <label for="body1">Pear</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="bodyType" value="hourglass" id="body2">
+                                <label for="body2">Hourglass</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="bodyType" value="rectangle" id="body3">
+                                <label for="body3">Rectangle</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="bodyType" value="apple" id="body4">
+                                <label for="body4">Apple</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What's the occasion?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="occasion" value="casual" id="occasion1">
+                                <label for="occasion1">Casual</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="occasion" value="office" id="occasion2">
+                                <label for="occasion2">Office</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="occasion" value="party" id="occasion3">
+                                <label for="occasion3">Party</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="occasion" value="wedding" id="occasion4">
+                                <label for="occasion4">Wedding</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Get My Style</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Page -->
+    <div id="resultsPage" class="results-page">
+        <div class="container">
+            <button class="back-btn" onclick="showCustomization()">← Back to Customization</button>
+            <h2 class="results-title">Your Perfect Style Recommendations</h2>
+            <div id="loadingDiv" class="loading">
+                <div class="spinner"></div>
+                <p>Finding your perfect outfit...</p>
+            </div>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Product Database
+        const products = {
+            outfits: [
+                // Casual Outfits
+                {
+                    name: "Cotton Blue Denim Jacket",
+                    occasion: "casual",
+                    skinToneSuitability: ["fair", "wheatish", "olive"],
+                    bodyTypeSuitability: ["rectangle", "pear", "hourglass"],
+                    price: 899,
+                    imageUrl: "https://via.placeholder.com/300x250/4285f4/white?text=Denim+Jacket",
+                    productUrl: "https://www.myntra.com/jackets",
+                    source: "Myntra"
+                },
+                {
+                    name: "Floral Maxi Dress",
+                    occasion: "casual",
+                    skinToneSuitability: ["wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["pear", "apple", "hourglass"],
+                    price: 1299,
+                    imageUrl: "https://via.placeholder.com/300x250/ea4335/white?text=Floral+Dress",
+                    productUrl: "https://www.myntra.com/dresses",
+                    source: "Myntra"
+                },
+                {
+                    name: "Casual White T-shirt",
+                    occasion: "casual",
+                    skinToneSuitability: ["fair", "wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["rectangle", "pear", "hourglass", "apple"],
+                    price: 599,
+                    imageUrl: "https://via.placeholder.com/300x250/34a853/white?text=White+T-shirt",
+                    productUrl: "https://www.myntra.com/tshirts",
+                    source: "Myntra"
+                },
+
+                // Office Outfits
+                {
+                    name: "Black Formal Blazer",
+                    occasion: "office",
+                    skinToneSuitability: ["fair", "wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["rectangle", "hourglass", "apple"],
+                    price: 2499,
+                    imageUrl: "https://via.placeholder.com/300x250/1a73e8/white?text=Formal+Blazer",
+                    productUrl: "https://www.myntra.com/blazers",
+                    source: "Myntra"
+                },
+                {
+                    name: "Navy Blue Formal Shirt",
+                    occasion: "office",
+                    skinToneSuitability: ["fair", "wheatish", "olive"],
+                    bodyTypeSuitability: ["rectangle", "hourglass", "pear"],
+                    price: 1299,
+                    imageUrl: "https://via.placeholder.com/300x250/673ab7/white?text=Formal+Shirt",
+                    productUrl: "https://www.myntra.com/shirts",
+                    source: "Myntra"
+                },
+                {
+                    name: "Grey Pencil Skirt",
+                    occasion: "office",
+                    skinToneSuitability: ["fair", "wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["hourglass", "rectangle", "apple"],
+                    price: 1899,
+                    imageUrl: "https://via.placeholder.com/300x250/9e9e9e/white?text=Pencil+Skirt",
+                    productUrl: "https://www.myntra.com/skirts",
+                    source: "Myntra"
+                },
+
+                // Party Outfits
+                {
+                    name: "Red Sequin Party Dress",
+                    occasion: "party",
+                    skinToneSuitability: ["wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["hourglass", "pear", "rectangle"],
+                    price: 2999,
+                    imageUrl: "https://via.placeholder.com/300x250/f44336/white?text=Red+Party+Dress",
+                    productUrl: "https://www.myntra.com/dresses",
+                    source: "Myntra"
+                },
+                {
+                    name: "Black Cocktail Dress",
+                    occasion: "party",
+                    skinToneSuitability: ["fair", "wheatish", "olive"],
+                    bodyTypeSuitability: ["hourglass", "rectangle", "apple"],
+                    price: 3599,
+                    imageUrl: "https://via.placeholder.com/300x250/212121/white?text=Black+Cocktail",
+                    productUrl: "https://www.myntra.com/dresses",
+                    source: "Myntra"
+                },
+                {
+                    name: "Golden Shimmer Top",
+                    occasion: "party",
+                    skinToneSuitability: ["wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["hourglass", "pear", "rectangle"],
+                    price: 1799,
+                    imageUrl: "https://via.placeholder.com/300x250/ffc107/white?text=Golden+Top",
+                    productUrl: "https://www.myntra.com/tops",
+                    source: "Myntra"
+                },
+
+                // Wedding Outfits
+                {
+                    name: "Maroon Silk Saree",
+                    occasion: "wedding",
+                    skinToneSuitability: ["wheatish", "olive", "dusky"],
+                    bodyTypeSuitability: ["hourglass", "pear", "rectangle", "apple"],
+                    price: 4999,
+                    imageUrl: "https://via.placeholder.com/300x250/8e2430/white?text=Silk+Saree",
+                    productUrl: "https://www.myntra.com/sarees",
+                    source: "Myntra"
+                },
+                {
+                    name: "Pink Anarkali Suit",
+                    occasion: "wedding",
+                    skinToneSuitability: ["fair", "wheatish", "olive"],
+                    bodyTypeSuitability: ["apple", "pear", "hourglass"],
+                    price: 3899,
+                    imageUrl: "https://via.placeholder.com/300x250/e91e63/white?text=Anarkali+Suit",
+                    productUrl: "https://www.myntra.com/ethnic-wear",
+                    source: "Myntra"
+                },
+                {
+                    name: "Royal Blue Lehenga",
+                    occasion: "wedding",
+                    skinToneSuitability: ["fair", "wheatish", "dusky"],
+                    bodyTypeSuitability: ["hourglass", "pear", "rectangle"],
+                    price: 7999,
+                    imageUrl: "https://via.placeholder.com/300x250/1565c0/white?text=Blue+Lehenga",
+                    productUrl: "https://www.myntra.com/lehenga",
+                    source: "Myntra"
+                }
+            ],
+
+            accessories: {
+                bags: [
+                    {
+                        name: "Black Leather Handbag",
+                        occasions: ["office", "casual"],
+                        price: 1999,
+                        imageUrl: "https://via.placeholder.com/300x250/424242/white?text=Handbag",
+                        productUrl: "https://www.myntra.com/handbags",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Golden Evening Clutch",
+                        occasions: ["party", "wedding"],
+                        price: 899,
+                        imageUrl: "https://via.placeholder.com/300x250/ff9800/white?text=Clutch",
+                        productUrl: "https://www.myntra.com/clutches",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Brown Crossbody Bag",
+                        occasions: ["casual"],
+                        price: 1299,
+                        imageUrl: "https://via.placeholder.com/300x250/795548/white?text=Crossbody",
+                        productUrl: "https://www.myntra.com/handbags",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Red Party Clutch",
+                        occasions: ["party"],
+                        price: 1199,
+                        imageUrl: "https://via.placeholder.com/300x250/d32f2f/white?text=Red+Clutch",
+                        productUrl: "https://www.myntra.com/clutches",
+                        source: "Myntra"
+                    }
+                ],
+
+                shoes: [
+                    {
+                        name: "Black Formal Heels",
+                        occasions: ["office", "party"],
+                        price: 1599,
+                        imageUrl: "https://via.placeholder.com/300x250/212121/white?text=Formal+Heels",
+                        productUrl: "https://www.myntra.com/heels",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "White Sneakers",
+                        occasions: ["casual"],
+                        price: 2499,
+                        imageUrl: "https://via.placeholder.com/300x250/ffffff/333333?text=Sneakers",
+                        productUrl: "https://www.myntra.com/casual-shoes",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Red High Heels",
+                        occasions: ["party"],
+                        price: 2199,
+                        imageUrl: "https://via.placeholder.com/300x250/c62828/white?text=Red+Heels",
+                        productUrl: "https://www.myntra.com/heels",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Golden Ethnic Heels",
+                        occasions: ["wedding"],
+                        price: 1899,
+                        imageUrl: "https://via.placeholder.com/300x250/f57c00/white?text=Ethnic+Heels",
+                        productUrl: "https://www.myntra.com/ethnic-footwear",
+                        source: "Myntra"
+                    }
+                ],
+
+                jewelry: [
+                    {
+                        name: "Pearl Earrings",
+                        occasions: ["office", "party"],
+                        price: 599,
+                        imageUrl: "https://via.placeholder.com/300x250/f5f5f5/333333?text=Pearl+Earrings",
+                        productUrl: "https://www.myntra.com/earrings",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Gold Chain Necklace",
+                        occasions: ["casual", "party"],
+                        price: 899,
+                        imageUrl: "https://via.placeholder.com/300x250/ffd700/333333?text=Gold+Chain",
+                        productUrl: "https://www.myntra.com/necklaces",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Diamond Stud Earrings",
+                        occasions: ["office", "wedding"],
+                        price: 2999,
+                        imageUrl: "https://via.placeholder.com/300x250/e1f5fe/333333?text=Diamond+Studs",
+                        productUrl: "https://www.myntra.com/earrings",
+                        source: "Myntra"
+                    },
+                    {
+                        name: "Traditional Bangles Set",
+                        occasions: ["wedding"],
+                        price: 1299,
+                        imageUrl: "https://via.placeholder.com/300x250/ffb300/white?text=Bangles",
+                        productUrl: "https://www.myntra.com/bangles",
+                        source: "Myntra"
+                    }
+                ]
+            }
+        };
+
+        // Page Navigation Functions
+        function showCustomization() {
+            document.getElementById('landingPage').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('landingPage').style.display = 'none';
+                document.getElementById('resultsPage').style.display = 'none';
+                document.getElementById('customizationPage').style.display = 'block';
+                document.getElementById('customizationPage').classList.add('show');
+            }, 800);
+        }
+
+        function showResults() {
+            document.getElementById('customizationPage').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('customizationPage').style.display = 'none';
+                document.getElementById('resultsPage').style.display = 'block';
+                document.getElementById('resultsPage').classList.add('show');
+            }, 800);
+        }
+
+        // Form Handling
+        document.getElementById('styleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const preferences = {
+                budget: formData.get('budget'),
+                skinTone: formData.get('skinTone'),
+                bodyType: formData.get('bodyType'),
+                occasion: formData.get('occasion')
+            };
+
+            // Validate form
+            if (!preferences.budget || !preferences.skinTone || !preferences.
